@@ -31,14 +31,9 @@ public class HelloController {
 //    @GetMapping("hello")
 //    @PostMapping()
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String helloWithQueryParam(@RequestParam String name, String lang) {
-        HashMap<String, String> greeting = new HashMap<>();
-        greeting.put("eng", "Hello");
-        greeting.put("it", "Benvenuto");
-        greeting.put("fr", "Bienvenue");
-        greeting.put("gr", "καλως ΗΡΘΑΤΕ");
-        greeting.put("jap", "ようこそ");
-        return  greeting.get(lang) + ", " + " " + name + "!";
+    public String helloWithQueryParam(@RequestParam String name, @RequestParam String lang) {
+
+        return "<h3>" + HelloController.createMessage(name, lang) + "</h3>";
     }
 
     @GetMapping("form")
@@ -58,5 +53,18 @@ public class HelloController {
                 "</form>" +
                 "</body>" +
                 "</html>";
+    }
+
+    public static String createMessage(String name, String lang) {
+        HashMap<String, String> greeting = new HashMap<>();
+        greeting.put("eng", "Hello");
+        greeting.put("it", "Benvenuto");
+        greeting.put("fr", "Bienvenue");
+        greeting.put("gr", "καλως ΗΡΘΑΤΕ");
+        greeting.put("jap", "ようこそ");
+
+        if (lang == null) lang = "eng";
+
+        return  greeting.get(lang) + " " + name + "!";
     }
 }
