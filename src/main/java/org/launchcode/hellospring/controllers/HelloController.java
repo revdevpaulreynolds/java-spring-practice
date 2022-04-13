@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 
 @Controller
-@ResponseBody
 @RequestMapping("hello")
 public class HelloController {
 
@@ -18,11 +17,13 @@ public class HelloController {
 
     // lives at /hello/goodbye because of routing above
     @GetMapping("goodbye")
+    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
 
     @GetMapping("{name}")
+    @ResponseBody
     public String helloWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
@@ -30,6 +31,7 @@ public class HelloController {
     // Now at /hello/hello
 //    @GetMapping("hello")
 //    @PostMapping()
+    @ResponseBody
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String helloWithQueryParam(@RequestParam String name, @RequestParam String lang) {
 
@@ -38,23 +40,25 @@ public class HelloController {
 
     @GetMapping("form")
     public String helloForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action='/hello' method='post'>" +
-                    "<input type='text' name='name'>" +
-                    "<select name='lang' id='lang-select'>" +
-                        "<option value='eng'>English</option>" +
-                        "<option value='it'>Italian</option>" +
-                        "<option value='fr'>French</option>" +
-                        "<option value='gr'>Greek</option>" +
-                        "<option value='jap'>Japanese</option>" +
-                    "</select>" +
-                    "<input type='submit' value='Greet me!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
+//        return "<html>" +
+//                "<body>" +
+//                "<form action='/hello' method='post'>" +
+//                    "<input type='text' name='name'>" +
+//                    "<select name='lang' id='lang-select'>" +
+//                        "<option value='eng'>English</option>" +
+//                        "<option value='it'>Italian</option>" +
+//                        "<option value='fr'>French</option>" +
+//                        "<option value='gr'>Greek</option>" +
+//                        "<option value='jap'>Japanese</option>" +
+//                    "</select>" +
+//                    "<input type='submit' value='Greet me!'>" +
+//                "</form>" +
+//                "</body>" +
+//                "</html>";
+        return "form";
     }
 
+    @ResponseBody
     public static String createMessage(String name, String lang) {
         HashMap<String, String> greeting = new HashMap<>();
         greeting.put("eng", "Hello");
